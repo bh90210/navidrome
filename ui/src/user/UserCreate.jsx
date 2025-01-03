@@ -10,11 +10,12 @@ import {
   useTranslate,
   useMutation,
   useNotify,
-  useRedirect,
+  useRedirect
 } from 'react-admin'
 import { Title } from '../common'
 
 const UserCreate = (props) => {
+  const { permissions } = props
   const translate = useTranslate()
   const [mutate] = useMutation()
   const notify = useNotify()
@@ -38,7 +39,9 @@ const UserCreate = (props) => {
         notify('resources.user.notifications.created', 'info', {
           smart_count: 1,
         })
-        redirect('/user')
+
+		permissions === 'admin' ? redirect('/user') : redirect('/user/'+localStorage.getItem('userId'))
+        
       } catch (error) {
         if (error.body.errors) {
           return error.body.errors
@@ -63,7 +66,10 @@ const UserCreate = (props) => {
           source="password"
           validate={[required()]}
         />
-        <BooleanInput source="isAdmin" defaultValue={false} />
+		{permissions === 'admin' && (
+        	<BooleanInput source="isAdmin" defaultValue={false} />
+		)}
+        <BooleanInput source="canAddNewUsers" defaultValue={true} />
       </SimpleForm>
     </Create>
   )

@@ -106,7 +106,10 @@
         "changePassword": "Change Password?",
         "currentPassword": "Current Password",
         "newPassword": "New Password",
-        "token": "Token"
+        "token": "Token",
+		"canAddNewUsers": "Can Add New Users",
+		"addedBy": "Added By",
+		"addNewUser": "Add User"
       },
       "helperTexts": {
         "name": "Changes to your name will only be reflected on next login"

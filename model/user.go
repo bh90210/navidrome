@@ -20,6 +20,9 @@ type User struct {
 	NewPassword string `structs:"password,omitempty" json:"password,omitempty"`
 	// If changing the password, this is also required
 	CurrentPassword string `structs:"current_password,omitempty" json:"currentPassword,omitempty"`
+
+	CanAddNewUsers bool   `structs:"can_add_new_users" json:"canAddNewUsers"`
+	AddedBy        string `structs:"added_by" json:"addedBy"`
 }
 
 type Users []User
