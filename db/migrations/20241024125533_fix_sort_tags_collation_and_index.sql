@@ -481,7 +481,9 @@ create table user_dg_tmp
     last_login_at  datetime,
     last_access_at datetime,
     created_at     datetime                                  not null,
-    updated_at     datetime                                  not null
+    updated_at     datetime                                  not null,
+	can_add_new_users bool default TRUE not null,
+	added_by varchar(255) default '' not null
 );
 
 insert into user_dg_tmp(id, user_name, name, email, password, is_admin, last_login_at, last_access_at, created_at,

@@ -157,13 +157,14 @@ func (r *userRepository) NewInstance() any {
 
 func (r *userRepository) Save(entity any) (string, error) {
 	usr := loggedUser(r.ctx)
-	if !usr.IsAdmin {
+	if !usr.IsAdmin && !usr.CanAddNewUsers {
 		return "", rest.ErrPermissionDenied
 	}
 	u := entity.(*model.User)
 	if err := validateUsernameUnique(r, u); err != nil {
 		return "", err
 	}
+	u.AddedBy = usr.UserName
 	err := r.Put(u)
 	if err != nil {
 		return "", err

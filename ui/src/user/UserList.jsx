@@ -40,6 +40,8 @@ const UserList = (props) => {
           <TextField source="userName" />
           <TextField source="name" />
           <BooleanField source="isAdmin" />
+          <BooleanField source="canAddNewUsers" />
+          <TextField source="addedBy" />
           <DateField source="lastLoginAt" sortByOrder={'DESC'} />
           <DateField source="lastAccessAt" sortByOrder={'DESC'} />
           <DateField source="updatedAt" sortByOrder={'DESC'} />

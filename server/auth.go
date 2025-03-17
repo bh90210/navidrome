@@ -138,13 +138,15 @@ func createAdminUser(ctx context.Context, ds model.DataStore, username, password
 	now := time.Now()
 	caser := cases.Title(language.Und)
 	initialUser := model.User{
-		ID:          uuid.NewString(),
-		UserName:    username,
-		Name:        caser.String(username),
-		Email:       "",
-		NewPassword: password,
-		IsAdmin:     true,
-		LastLoginAt: &now,
+		ID:             uuid.NewString(),
+		UserName:       username,
+		Name:           caser.String(username),
+		Email:          "",
+		NewPassword:    password,
+		IsAdmin:        true,
+		LastLoginAt:    &now,
+		AddedBy:        "",
+		CanAddNewUsers: true,
 	}
 	err := ds.User(ctx).Put(&initialUser)
 	if err != nil {

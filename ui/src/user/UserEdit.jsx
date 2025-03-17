@@ -137,8 +137,12 @@ const UserEdit = (props) => {
         </FormDataConsumer>
 
         {permissions === 'admin' && (
-          <BooleanInput source="isAdmin" initialValue={false} />
+          <div>
+            <BooleanInput source="isAdmin" initialValue={false} />
+            <BooleanInput source="canAddNewUsers" defaultValue={true} />
+          </div>
         )}
+
         <DateField variant="body1" source="lastLoginAt" showTime />
         <DateField variant="body1" source="lastAccessAt" showTime />
         <DateField variant="body1" source="updatedAt" showTime />

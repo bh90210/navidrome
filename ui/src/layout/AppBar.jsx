@@ -11,6 +11,7 @@ import { makeStyles, MenuItem, ListItemIcon, Divider } from '@material-ui/core'
 import ViewListIcon from '@material-ui/icons/ViewList'
 import InfoIcon from '@material-ui/icons/Info'
 import PersonIcon from '@material-ui/icons/Person'
+import PersonAddIcon from '@material-ui/icons/PersonAdd'
 import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount'
 import { Dialogs } from '../dialogs/Dialogs'
 import { AboutDialog } from '../dialogs'
@@ -96,6 +97,34 @@ const CustomUserMenu = ({ onClick, ...rest }) => {
     )
   }
 
+  const renderAddNewUserMenuItemLink = () => {
+    if (permissions === 'admin') {
+      return null
+    }
+    const userResource = resourceDefinition('user')
+    if (!userResource) {
+      return null
+    }
+    userResource.icon = PersonAddIcon
+    const label = translate(`resources.user.fields.addNewUser`)
+    return (
+      <MenuItemLink
+        className={classes.root}
+        activeClassName={classes.active}
+        key="addNewUser"
+        to="/user/create"
+        primaryText={label}
+        leftIcon={
+          (userResource.icon && createElement(userResource.icon)) || (
+            <ViewListIcon />
+          )
+        }
+        onClick={onClick}
+        sidebarIsOpen={true}
+      />
+    )
+  }
+
   const renderSettingsMenuItemLink = (resource, id) => {
     const label = translate(`resources.${resource.name}.name`, {
       smart_count: id ? 1 : 2,
@@ -124,6 +153,7 @@ const CustomUserMenu = ({ onClick, ...rest }) => {
         <PersonalMenu sidebarIsOpen={true} onClick={onClick} />
         <Divider />
         {renderUserMenuItemLink()}
+        {renderAddNewUserMenuItemLink()}
         {resources
           .filter(settingsResources)
           .map((r) => renderSettingsMenuItemLink(r))}
